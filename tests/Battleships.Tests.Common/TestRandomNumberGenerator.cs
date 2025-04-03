@@ -1,8 +1,8 @@
 ﻿using Battleships.Domain.Interfaces;
 
-namespace Battleships.Domain.Tests
+namespace Battleships.Tests.Common
 {
-	internal class TestRandomNumberGenerator : IRandomNumberGenerator
+	public class TestRandomNumberGenerator : IRandomNumberGenerator
 	{
 		private static readonly Random _random = new();
 

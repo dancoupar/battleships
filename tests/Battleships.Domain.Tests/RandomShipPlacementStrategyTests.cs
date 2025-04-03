@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Battleships.Tests.Common;
+using FluentAssertions;
 
 namespace Battleships.Domain.Tests
 {

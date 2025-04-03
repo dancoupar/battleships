@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Battleships.Domain\Battleships.Domain.csproj" />
+    <ProjectReference Include="..\Battleships.Tests.Common\Battleships.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

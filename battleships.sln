@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships.Domain.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships.Infrastructure", "src\Battleships.Infrastructure\Battleships.Infrastructure.csproj", "{B5956247-9FDD-4031-9954-B7ADAC1F75C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships.Tests.Common", "tests\Battleships.Tests.Common\Battleships.Tests.Common.csproj", "{DF176E08-12CD-48E0-B392-EF2641BFD945}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{B5956247-9FDD-4031-9954-B7ADAC1F75C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5956247-9FDD-4031-9954-B7ADAC1F75C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5956247-9FDD-4031-9954-B7ADAC1F75C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF176E08-12CD-48E0-B392-EF2641BFD945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF176E08-12CD-48E0-B392-EF2641BFD945}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF176E08-12CD-48E0-B392-EF2641BFD945}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF176E08-12CD-48E0-B392-EF2641BFD945}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,5 +60,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E5E1C49E-9B2B-45FA-9FE9-979230F446D7} = {81C84091-5931-4C61-873D-111C1D05D61E}
 		{6F47235B-7602-48C1-A8BA-2DCA4BA5E911} = {81C84091-5931-4C61-873D-111C1D05D61E}
+		{DF176E08-12CD-48E0-B392-EF2641BFD945} = {81C84091-5931-4C61-873D-111C1D05D61E}
 	EndGlobalSection
 EndGlobal
