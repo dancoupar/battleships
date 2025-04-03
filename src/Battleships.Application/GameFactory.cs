@@ -4,6 +4,16 @@ using Battleships.Domain.Interfaces;
 
 namespace Battleships.Application
 {
+	/// <summary>
+	/// Represents a factory for creating new games.
+	/// </summary>
+	/// <remarks>
+	/// Responsible for creating games, players and boards, and wiring up events.
+	/// </remarks>
+	/// <param name="gameConfiguration">An object representing the game configuration.</param>
+	/// <param name="boardFactory">A factory for creating game boards.</param>
+	/// <param name="turnInputHandler">An object for handling user input when taking a turn.</param>
+	/// <param name="userOutputHandler">An object for handling user output.</param>
 	public class GameFactory(GameConfiguration gameConfiguration, IBoardFactory boardFactory, ITurnInputHandler turnInputHandler, IUserOutputHandler userOutputHandler)
 	{
 		public Game CreateGame()
@@ -12,12 +22,14 @@ namespace Battleships.Application
 
 			for (int i = 0; i < gameConfiguration.NumberOfPlayers; i++)
 			{
+				int playerNumber = i + 1;
+
 				// Has a board been specified for this player?
 				Board? board = null;
 				
-				if (gameConfiguration.PlayerBoardSizes.TryGetValue(i, out (int Width, int Height) boardSize))
+				if (gameConfiguration.PlayerBoardSizes.TryGetValue(playerNumber, out (int Width, int Height) boardSize))
 				{					
-					if (!gameConfiguration.PlayerShipTypes.TryGetValue(i, out List<ShipType>? shipTypes))
+					if (!gameConfiguration.PlayerShipTypes.TryGetValue(playerNumber, out List<ShipType>? shipTypes))
 					{
 						throw new InvalidOperationException("A player board was specified, but no ships were specified for that player.");
 					}
@@ -25,9 +37,12 @@ namespace Battleships.Application
 					board = boardFactory.CreateBoard(boardSize.Width, boardSize.Height, shipTypes);
 				}
 
-				int playerNumber = i + 1;
+				if (!gameConfiguration.PlayerTypes.TryGetValue(playerNumber, out PlayerType playerType))
+				{
+					throw new InvalidOperationException($"No player type was specified for player {playerNumber}.");
+				}
 
-				players[i] = gameConfiguration.PlayerTypes[i] switch
+				players[i] = playerType switch
 				{
 					PlayerType.Human => new HumanPlayer(playerNumber, board),
 					PlayerType.Computer => new ComputerPlayer(playerNumber, board),

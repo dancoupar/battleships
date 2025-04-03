@@ -5,9 +5,6 @@
 	/// </summary>
 	public class Game
 	{
-		private Player? _currentPlayer;
-		private bool _gameOver;
-
 		private Game(Player[] players)
 		{
 			this.Players = players;
@@ -29,6 +26,16 @@
 		/// The players participating in the game.
 		/// </summary>
 		public Player[] Players { get; }
+
+		/// <summary>
+		/// The player whose turn it is.
+		/// </summary>
+		public Player? CurrentPlayer { get; private set; }
+
+		/// <summary>
+		/// Whether the game has finished.
+		/// </summary>
+		public bool GameOver { get; private set; }
 
 		/// <summary>
 		/// Raised when a human player is requested to take their turn.
@@ -86,7 +93,7 @@
 			{
 				foreach (Player player in this.Players)
 				{
-					_currentPlayer = player;
+					this.CurrentPlayer = player;
 					Player opponent = this.GetNextPlayer();
 
 					if (opponent.HasBoard())
@@ -95,13 +102,13 @@
 						opponent.RespondToGuess(guess);
 					}
 
-					if (_gameOver)
+					if (this.GameOver)
 					{
 						break;
 					}
 				}
 			}
-			while (!_gameOver);
+			while (!this.GameOver);
 		}
 
 		/// <summary>
@@ -109,12 +116,12 @@
 		/// </summary>
 		public void EndGame()
 		{
-			_gameOver = true;
+			this.GameOver = true;
 		}
 
 		private Player GetNextPlayer()
 		{
-			int playerIndex = Array.IndexOf(this.Players, _currentPlayer);
+			int playerIndex = Array.IndexOf(this.Players, this.CurrentPlayer);
 			return this.Players[(playerIndex + 1) % this.Players.Length];
 		}
 
@@ -161,10 +168,10 @@
 		{
 			ShipSunk?.Invoke(this, ship);
 
-			if (this.Players.Where(p => p != _currentPlayer).All(p => p.CountNumberOfShipsRemaining() == 0))
+			if (this.Players.Where(p => p != this.CurrentPlayer).All(p => p.CountNumberOfShipsRemaining() == 0))
 			{
-				_gameOver = true;
-				PlayerWon?.Invoke(this, _currentPlayer!);
+				this.GameOver = true;
+				PlayerWon?.Invoke(this, this.CurrentPlayer!);
 			}
 		}		
 	}

@@ -8,16 +8,16 @@ var gameConfig = new GameConfiguration()
 	NumberOfPlayers = 2,
 	PlayerTypes = new Dictionary<int, PlayerType>()
 	{
-		{ 0, PlayerType.Human },
-		{ 1, PlayerType.Computer }
+		{ 1, PlayerType.Human },
+		{ 2, PlayerType.Computer }
 	},
 	PlayerBoardSizes = new Dictionary<int, (int Width, int Height)>()
 	{
-		{ 1, (10, 10) },
+		{ 2, (10, 10) },
 	},
 	PlayerShipTypes = new Dictionary<int, List<ShipType>>()
 	{
-		{ 1, new List<ShipType>() { ShipType.Battleship, ShipType.Destroyer, ShipType.Destroyer } }
+		{ 2, new List<ShipType>() { ShipType.Battleship, ShipType.Destroyer, ShipType.Destroyer } }
 	}
 };
 

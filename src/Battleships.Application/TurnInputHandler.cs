@@ -3,6 +3,13 @@ using Battleships.Domain;
 
 namespace Battleships.Application
 {
+	/// <summary>
+	/// An object for handling user input when taking a turn.
+	/// </summary>
+	/// <remarks>
+	/// Responsible for prompting the player, validating their input and returning a valid
+	/// coordinate representing their guess.
+	/// </remarks>
 	public class TurnInputHandler(IUserInputHandler userInputHandler, IUserOutputHandler userOutputHandler) : ITurnInputHandler
 	{
 		public void WireUp(Game game)
