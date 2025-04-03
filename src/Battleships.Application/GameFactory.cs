@@ -10,13 +10,12 @@ namespace Battleships.Application
 	/// <remarks>
 	/// Responsible for creating games, players and boards, and wiring up events.
 	/// </remarks>
-	/// <param name="gameConfiguration">An object representing the game configuration.</param>
 	/// <param name="boardFactory">A factory for creating game boards.</param>
 	/// <param name="turnInputHandler">An object for handling user input when taking a turn.</param>
 	/// <param name="userOutputHandler">An object for handling user output.</param>
-	public class GameFactory(GameConfiguration gameConfiguration, IBoardFactory boardFactory, ITurnInputHandler turnInputHandler, IUserOutputHandler userOutputHandler)
+	public class GameFactory(IBoardFactory boardFactory, ITurnInputHandler turnInputHandler, IUserOutputHandler userOutputHandler) : IGameFactory
 	{
-		public Game CreateGame()
+		public Game CreateGame(GameConfiguration gameConfiguration)
 		{
 			Player[] players = new Player[gameConfiguration.NumberOfPlayers];
 
