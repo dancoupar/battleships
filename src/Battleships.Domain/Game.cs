@@ -25,20 +25,48 @@
 			}
 		}
 
+		/// <summary>
+		/// The players participating in the game.
+		/// </summary>
 		public Player[] Players { get; }
+
+		/// <summary>
+		/// Raised when a human player is requested to take their turn.
+		/// </summary>
 
 		public event Func<HumanPlayer, Player, Coordinate>? HumanPlayerTurnRequested;
 
+		/// <summary>
+		/// Raised when a guess is made that is not within the bounds of the game board.
+		/// </summary>
 		public event EventHandler? GuessOutOfBounds;
 
+		/// <summary>
+		/// Raised when a player makes a guess but misses.
+		/// </summary>
 		public event EventHandler? ShipMissed;
 
+		/// <summary>
+		/// Raised when a player makes a guess and hits.
+		/// </summary>
 		public event EventHandler? ShipHit;
 
+		/// <summary>
+		/// Raised when a player makes a guess and hits, resulting in the sinking of an opponent's ship.
+		/// </summary>
 		public event EventHandler<Ship>? ShipSunk;
 
+		/// <summary>
+		/// Raised when any player wins the game.
+		/// </summary>
 		public event EventHandler<Player>? PlayerWon;
 
+		/// <summary>
+		/// Creates a new game of battleships involving the specified players.
+		/// </summary>
+		/// <param name="players">The players of the game.</param>
+		/// <returns>The new game instance.</returns>
+		/// <exception cref="InvalidOperationException"></exception>
 		public static Game CreateNew(Player[] players)
 		{
 			if (players.Length < 2)
@@ -49,6 +77,9 @@
 			return new Game(players);
 		}
 
+		/// <summary>
+		/// Starts the game.
+		/// </summary>
 		public void Start()
 		{
 			do
@@ -73,6 +104,9 @@
 			while (!_gameOver);
 		}
 
+		/// <summary>
+		/// Ends the game.
+		/// </summary>
 		public void EndGame()
 		{
 			_gameOver = true;

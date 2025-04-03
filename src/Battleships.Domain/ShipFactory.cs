@@ -1,7 +1,7 @@
 ﻿using Battleships.Domain.Interfaces;
 
 namespace Battleships.Domain
-{
+{	
 	public class ShipFactory : IShipFactory
 	{
 		public IEnumerable<Ship> CreateFleet(IEnumerable<ShipType> shipTypes)
