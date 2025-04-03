@@ -1,6 +1,6 @@
 ﻿namespace Battleships.Domain
 {
-	public class HumanPlayer(Board? board) : Player(board)
+	public class HumanPlayer(int playerNumber, Board? board) : Player(playerNumber, board)
 	{
 		public event Func<HumanPlayer, Coordinate>? TurnRequested;
 

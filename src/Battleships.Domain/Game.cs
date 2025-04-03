@@ -41,6 +41,11 @@
 
 		public static Game CreateNew(Player[] players)
 		{
+			if (players.Length < 2)
+			{
+				throw new InvalidOperationException("At least two players are required to create a game.");
+			}
+
 			return new Game(players);
 		}
 

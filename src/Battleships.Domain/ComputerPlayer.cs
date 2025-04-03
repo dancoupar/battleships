@@ -1,6 +1,6 @@
 ﻿namespace Battleships.Domain
 {
-	public class ComputerPlayer(Board? board) : Player(board)
+	public class ComputerPlayer(int playerNumber, Board? board) : Player(playerNumber, board)
 	{
 		public override Coordinate MakeGuess()
 		{

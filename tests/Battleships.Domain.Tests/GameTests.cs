@@ -10,12 +10,12 @@ namespace Battleships.Domain.Tests
 			// Arrange
 			Player[] players =
 			[
-				new HumanPlayer(new Board(10, 10)),
-				new HumanPlayer(new Board(10, 10))
+				new HumanPlayer(1, new Board(10, 10)),
+				new HumanPlayer(2, new Board(10, 10))
 			];
-
-			int turnNumber = 0;
+			
 			var sut = Game.CreateNew(players);
+			int turnNumber = 0;
 			sut.HumanPlayerTurnRequested += Sut_HumanPlayerTurnRequested;
 
 			// Act
@@ -49,12 +49,12 @@ namespace Battleships.Domain.Tests
 
 			Player[] players =
 			[
-				new HumanPlayer(player1Board),
-				new HumanPlayer(player2Board)
+				new HumanPlayer(1, player1Board),
+				new HumanPlayer(2, player2Board)
 			];
-
-			int roundNumber = 0;
+			
 			var sut = Game.CreateNew(players);
+			int roundNumber = 0;
 			sut.HumanPlayerTurnRequested += Sut_HumanPlayerTurnRequested;
 			sut.PlayerWon += Sut_PlayerWon;
 			Player? winningPlayer = null;
@@ -62,7 +62,6 @@ namespace Battleships.Domain.Tests
 			// Act
 			sut.Start();
 
-			// Assert
 			Coordinate Sut_HumanPlayerTurnRequested(HumanPlayer currentPlayer, Player opponent)
 			{
 				if (currentPlayer == players[0])
@@ -78,7 +77,64 @@ namespace Battleships.Domain.Tests
 				winningPlayer = e;
 			}
 
+			// Assert
 			winningPlayer.Should().Be(players[0]);
-		}		
+		}
+
+		[Fact]
+		public void A_player_is_asked_to_make_another_guess_if_their_guess_was_not_in_bounds()
+		{
+			// Arrange
+			Player[] players =
+			[
+				new HumanPlayer(1, new Board(10, 10)),
+				new HumanPlayer(2, new Board(10, 10)),
+			];
+
+			var sut = Game.CreateNew(players);
+			int turnRequestNumber = 0;
+			sut.HumanPlayerTurnRequested += Sut_HumanPlayerTurnRequested;
+
+			// Act
+			sut.Start();
+
+			Coordinate Sut_HumanPlayerTurnRequested(HumanPlayer currentPlayer, Player opponent)
+			{
+				currentPlayer.Should().Be(players[0]);
+				turnRequestNumber++;
+
+				if (turnRequestNumber == 1)
+				{
+					return Coordinate.Parse("Z1");
+				}
+				else
+				{
+					sut.EndGame();
+					return Coordinate.Parse("A1");
+				}
+			}
+
+			// Assert
+			turnRequestNumber.Should().Be(2);
+		}
+
+		[Fact]
+		public void At_least_two_players_are_required_to_start_a_game()
+		{
+			// Arrange
+			Player[] players =
+			[
+				new HumanPlayer(1, new Board(10, 10))
+			];
+
+			// Act
+			Action act = () =>
+			{
+				var sut = Game.CreateNew(players);
+			};
+
+			// Assert
+			act.Should().Throw<InvalidOperationException>();
+		}
 	}
 }

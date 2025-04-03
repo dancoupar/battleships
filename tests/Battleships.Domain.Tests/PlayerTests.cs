@@ -9,7 +9,7 @@ namespace Battleships.Domain.Tests
 		public void A_player_that_does_not_have_a_board_cannot_respond_to_guesses()
 		{
 			// Arrange
-			var sut = new HumanPlayer(null);
+			var sut = new HumanPlayer(1, null);
 
 			// Act
 			Action act = () =>
@@ -26,7 +26,7 @@ namespace Battleships.Domain.Tests
 		{
 			// Arrange
 			var board = new Board(10, 10);
-			var sut = new HumanPlayer(board);
+			var sut = new HumanPlayer(1, board);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A1"), ShipOrientation.Horizontal);
 			IMonitor<HumanPlayer> monitor = sut.Monitor();
 
@@ -44,7 +44,7 @@ namespace Battleships.Domain.Tests
 		{
 			// Arrange
 			var board = new Board(10, 10);
-			var sut = new HumanPlayer(board);
+			var sut = new HumanPlayer(1, board);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A1"), ShipOrientation.Horizontal);
 			IMonitor<HumanPlayer> monitor = sut.Monitor();
 
@@ -62,7 +62,7 @@ namespace Battleships.Domain.Tests
 		{
 			// Arrange
 			var board = new Board(10, 10);
-			var sut = new HumanPlayer(board);
+			var sut = new HumanPlayer(1, board);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A1"), ShipOrientation.Horizontal);
 			IMonitor<HumanPlayer> monitor = sut.Monitor();
 
@@ -82,7 +82,7 @@ namespace Battleships.Domain.Tests
 		{
 			// Arrange
 			var board = new Board(10, 10);
-			var sut = new HumanPlayer(board);
+			var sut = new HumanPlayer(1, board);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A1"), ShipOrientation.Horizontal);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A2"), ShipOrientation.Horizontal);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A3"), ShipOrientation.Horizontal);
@@ -99,7 +99,7 @@ namespace Battleships.Domain.Tests
 		{
 			// Arrange
 			var board = new Board(10, 10);
-			var sut = new HumanPlayer(board);
+			var sut = new HumanPlayer(1, board);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A1"), ShipOrientation.Horizontal);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A2"), ShipOrientation.Horizontal);
 			board.PlaceShip(new Destroyer(), Coordinate.Parse("A3"), ShipOrientation.Horizontal);
