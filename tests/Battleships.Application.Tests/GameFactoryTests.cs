@@ -46,22 +46,22 @@ namespace Battleships.Application.Tests
 			Game result = sut.CreateGame(gameConfig);
 
 			// Assert
-			result.Players.Length.Should().Be(2);
+			result.Players.Count.Should().Be(2);
 
-			result.Players[0].Should().BeOfType<HumanPlayer>();
-			result.Players[0].Board.Should().NotBeNull();
-			result.Players[0].Board!.Width.Should().Be(5);
-			result.Players[0].Board!.Height.Should().Be(5);
-			result.Players[0].Board!.Ships.Count.Should().Be(1);
-			result.Players[0].Board!.Ships[0].Should().BeOfType<Battleship>();
+			result.Players.ElementAt(0).Should().BeOfType<HumanPlayer>();
+			result.Players.ElementAt(0).Board.Should().NotBeNull();
+			result.Players.ElementAt(0).Board!.Width.Should().Be(5);
+			result.Players.ElementAt(0).Board!.Height.Should().Be(5);
+			result.Players.ElementAt(0).Board!.Ships.Count.Should().Be(1);
+			result.Players.ElementAt(0).Board!.Ships.ElementAt(0).Should().BeOfType<Battleship>();
 
-			result.Players[1].Should().BeOfType<ComputerPlayer>();
-			result.Players[1].Board.Should().NotBeNull();
-			result.Players[1].Board!.Width.Should().Be(10);
-			result.Players[1].Board!.Height.Should().Be(10);
-			result.Players[1].Board!.Ships.Count.Should().Be(2);
-			result.Players[1].Board!.Ships[0].Should().BeOfType<Destroyer>();
-			result.Players[1].Board!.Ships[1].Should().BeOfType<Battleship>();
+			result.Players.ElementAt(1).Should().BeOfType<ComputerPlayer>();
+			result.Players.ElementAt(1).Board.Should().NotBeNull();
+			result.Players.ElementAt(1).Board!.Width.Should().Be(10);
+			result.Players.ElementAt(1).Board!.Height.Should().Be(10);
+			result.Players.ElementAt(1).Board!.Ships.Count.Should().Be(2);
+			result.Players.ElementAt(1).Board!.Ships.ElementAt(0).Should().BeOfType<Destroyer>();
+			result.Players.ElementAt(1).Board!.Ships.ElementAt(1).Should().BeOfType<Battleship>();
 		}
 	}
 }

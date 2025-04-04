@@ -132,7 +132,7 @@ namespace Battleships.Domain.Tests
 
 			// Act			
 			// Assert
-			sut.Coordinates.Should().BeNull();
+			sut.Coordinates.Should().BeEmpty();
 			sut.Orientation.Should().BeNull();
 			sut.HasBeenPlaced().Should().BeFalse();			
 		}

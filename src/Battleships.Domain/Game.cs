@@ -5,11 +5,13 @@
 	/// </summary>
 	public class Game
 	{
+		private readonly Player[] _players;
+
 		private Game(Player[] players)
 		{
-			this.Players = players;
+			_players = players;
 
-			foreach (Player player in this.Players)
+			foreach (Player player in _players)
 			{
 				player.ShipHit += OnShipHit;
 				player.ShipMissed += OnShipMiss;
@@ -25,7 +27,13 @@
 		/// <summary>
 		/// The players participating in the game.
 		/// </summary>
-		public Player[] Players { get; }
+		public IReadOnlyCollection<Player> Players
+		{
+			get
+			{
+				return _players.AsReadOnly();
+			}
+		}
 
 		/// <summary>
 		/// The player whose turn it is.
@@ -121,8 +129,8 @@
 
 		private Player GetNextPlayer()
 		{
-			int playerIndex = Array.IndexOf(this.Players, this.CurrentPlayer);
-			return this.Players[(playerIndex + 1) % this.Players.Length];
+			int playerIndex = Array.IndexOf(_players, this.CurrentPlayer);
+			return _players[(playerIndex + 1) % _players.Length];
 		}
 
 		private Coordinate OnHumanPlayerTurnRequested(HumanPlayer player)

@@ -7,6 +7,10 @@
 	/// <param name="length">The length of the ship in terms of the number of coordinates it will occupy.</param>
 	public abstract class Ship(string name, int length)
 	{
+		private static readonly IReadOnlyCollection<Coordinate> _emptyCoordinates = new List<Coordinate>().AsReadOnly();
+		private List<Coordinate>? _coordinates;
+		private readonly List<Coordinate> _hits = [];
+
 		/// <summary>
 		/// The name of the ship.
 		/// </summary>
@@ -20,7 +24,13 @@
 		/// <summary>
 		/// The coordinates that the ship currently occupies, if it's been placed.
 		/// </summary>
-		public List<Coordinate>? Coordinates { get; private set; }
+		public IReadOnlyCollection<Coordinate> Coordinates
+		{
+			get
+			{
+				return _coordinates?.AsReadOnly() ?? _emptyCoordinates;
+			}
+		}
 
 		/// <summary>
 		/// Whether the ship is oriented horizontally or vertically, if it's been placed.
@@ -30,7 +40,13 @@
 		/// <summary>
 		/// Hits that have been recorded against the ship.
 		/// </summary>
-		public List<Coordinate> Hits { get; } = [];
+		public IReadOnlyCollection<Coordinate> Hits
+		{
+			get
+			{
+				return _hits.AsReadOnly();
+			}
+		}
 
 		/// <summary>
 		/// Places the ship onto the specified coordinates in the specified orientation.
@@ -49,7 +65,7 @@
 				throw new ArgumentException("The specified coordinates are not valid. The number of coordinates must match the length of the ship and must be contiguous according tothe orientation specified.");
 			}
 
-			this.Coordinates = [.. coordinates];
+			_coordinates = [.. coordinates];
 			this.Orientation = orientation;
 		}
 
@@ -65,13 +81,13 @@
 				throw new InvalidOperationException("This ship has not been placed.");
 			}
 
-			if (!Coordinates!.Contains(coordinate))
+			if (!_coordinates!.Contains(coordinate))
 			{
 				throw new InvalidOperationException($"The ship does not occupy the coordinate {coordinate}.");
 			}
 
-			this.Hits.Add(coordinate);
-			this.Coordinates.Remove(coordinate);
+			_hits.Add(coordinate);
+			_coordinates!.Remove(coordinate);
 		}
 
 		/// <summary>
@@ -80,7 +96,7 @@
 		/// <returns>True if the ship has been placed on a player's board, false otherwise.</returns>
 		public bool HasBeenPlaced()
 		{
-			return this.Coordinates is not null;
+			return _coordinates is not null;
 		}
 
 		/// <summary>
@@ -94,7 +110,7 @@
 				return false;
 			}
 
-			return this.Coordinates!.Count == 0;
+			return _coordinates!.Count == 0;
 		}
 
 		private bool AreCoordinatesValid(List<Coordinate> coordinates, ShipOrientation orientation)

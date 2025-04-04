@@ -7,6 +7,8 @@
 	/// <param name="height">The height of the board.</param>
 	public class Board(int width, int height)
 	{
+		private readonly List<Ship> _ships = [];
+
 		/// <summary>
 		/// The width of the board.
 		/// </summary>
@@ -20,7 +22,13 @@
 		/// <summary>
 		/// The ships currently placed on the board.
 		/// </summary>
-		public List<Ship> Ships { get; } = [];
+		public IReadOnlyCollection<Ship> Ships
+		{
+			get
+			{
+				return _ships.AsReadOnly();
+			}
+		}
 
 		/// <summary>
 		/// Places the specified ship on the board at the specified starting coordinate and with the
@@ -42,7 +50,7 @@
 				throw new InvalidOperationException("One or more of the specified coordinates is already occupied or out of bounds.");
 			}
 
-			this.Ships.Add(ship);
+			_ships.Add(ship);
 			ship.Place(coordinates, orientation);
 		}
 
